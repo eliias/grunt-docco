@@ -1,5 +1,4 @@
 # docco
----
 
 This is a [grunt plugin](http://gruntjs.com/plugins) which uses [docco](http://jashkenas.github.io/docco/) to create
 HTML documents that displays your comments intermingled with your code.
@@ -8,7 +7,6 @@ I got the idea for this plugin from [David Souther](https://github.com/DavidSout
 not work for me and `grunt 0.4`.
 
 ## Getting Started
----
 
 This plugin requires Grunt `~0.4`
 
@@ -78,4 +76,5 @@ module.exports = function(grunt) {
 ```
 
 ## Release History
-0.1
+0.1.1 Fixes README and docs
+0.1 Initial release
