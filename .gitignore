@@ -8,9 +8,11 @@ lib-cov
 *.out
 *.pid
 *.gz
+.idea
 
 pids
 logs
 results
 
+atlassian-ide-plugin.xml
 npm-debug.log
