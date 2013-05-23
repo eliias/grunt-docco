@@ -1,5 +1,5 @@
 {
-  "name": "grunt-docco",
+  "name": "grunt-docco2",
   "description": "grunt task using docco to generate HTML documents out of you source",
   "version": "0.1.1",
   "homepage": "https://github.com/eliias/grunt-docco",
