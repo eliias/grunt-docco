@@ -76,5 +76,5 @@ module.exports = function(grunt) {
 ```
 
 ## Release History
-0.1.1 Fixes README and docs
-0.1 Initial release
+* 25-05-2013        0.1.1   Fixes README and docs
+* 25-05-2013        0.1.0   Initial release
