@@ -1,7 +1,7 @@
 {
   "name": "grunt-docco",
-  "description": "Using docco to create an HTML file out of all specified annotated source files.",
-  "version": "0.1.0",
+  "description": "grunt task using docco to generate HTML documents out of you source",
+  "version": "0.1.1",
   "homepage": "https://github.com/eliias/grunt-docco",
   "author": {
     "name": "Hannes Moser",

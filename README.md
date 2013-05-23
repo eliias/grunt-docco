@@ -1,14 +1,21 @@
 # docco
 ---
 
-> Using docco to create HTML files out of your annotated source files.
+This is a [grunt plugin](http://gruntjs.com/plugins) which uses [docco](http://jashkenas.github.io/docco/) to create
+HTML documents that displays your comments intermingled with your code.
+
+I got the idea for this plugin from [David Souther](https://github.com/DavidSouther/grunt-docco) but his version did
+not work for me and `grunt 0.4`.
 
 ## Getting Started
 ---
 
-This plugin requires Grunt `~0.4.1`
+This plugin requires Grunt `~0.4`
 
-If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
+If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started)
+guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt
+plugins.
+Once you're familiar with that process, you may install this plugin with this command:
 
 ```shell
 npm install docco --save-dev
@@ -28,68 +35,47 @@ In your project's Gruntfile, add a section named `docco` to the data object pass
 ```js
 grunt.initConfig({
   docco: {
+    src: [],
     options: {
-      // Task-specific options go here.
-    },
-    your_target: {
-      // Target-specific file lists and/or options go here.
-    },
-  },
+        output: 'docs'
+    }
+  }
 })
 ```
-
-### Options
-
-#### options.separator
-Type: `String`
-Default value: `',  '`
-
-A string value that is used to do something with whatever.
-
-#### options.punctuation
-Type: `String`
-Default value: `'.'`
-
-A string value that is used to do something else with whatever else.
 
 ### Usage Examples
 
-#### Default Options
-In this example, the default options are used to do something with whatever. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result would be `Testing, 1 2 3.`
+This example uses this pattern `public/js/**/*.js` to get your code files.
+In this case `public/js/libs` should be excluded from docco.
+
+If you are not sure about the pattern and how you should define the `src` array, read more about the
+[Files Array Format](http://gruntjs.com/configuring-tasks#files-array-format).
 
 ```js
-grunt.initConfig({
-  docco: {
-    options: {},
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
-  },
-})
+module.exports = function(grunt) {
+
+    // Project configuration.
+    grunt.initConfig({
+        pkg: grunt.file.readJSON('package.json'),
+		docco: {
+			docs: {
+				src: ['public/js/**/*.js', '!public/js/libs/*.js', '!public/js/libs/**/*.js'],
+				options: {
+					output: 'docs/annotated-source'
+				}
+			}
+		}
+	});
+
+	// Load tasks
+	grunt.loadNpmTasks('grunt-docco');
+
+	// Default task(s)
+	grunt.registerTask('default', ['docco']);
+
+};
+
 ```
-
-#### Custom Options
-In this example, custom options are used to do something else with whatever else. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result in this case would be `Testing: 1 2 3 !!!`
-
-```js
-grunt.initConfig({
-  docco: {
-    options: {
-      separator: ': ',
-      punctuation: ' !!!',
-    },
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
-  },
-})
-```
-
-## Contributing
-In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
-_(Nothing yet)_
-=======
-grunt-docco
-===========
+0.1
