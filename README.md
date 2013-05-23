@@ -1,4 +1,4 @@
-# docco
+# grunt-docco2
 
 This is a [grunt plugin](http://gruntjs.com/plugins) which uses [docco](http://jashkenas.github.io/docco/) to create
 HTML documents that displays your comments intermingled with your code.
@@ -16,13 +16,13 @@ plugins.
 Once you're familiar with that process, you may install this plugin with this command:
 
 ```shell
-npm install docco --save-dev
+npm install grunt-docco2
 ```
 
 Once the plugin has been installed, it may be enabled inside your Gruntfile with this line of JavaScript:
 
 ```js
-grunt.loadNpmTasks('docco');
+grunt.loadNpmTasks('grunt-docco2');
 ```
 
 ## The "docco" task
@@ -66,7 +66,7 @@ module.exports = function(grunt) {
 	});
 
 	// Load tasks
-	grunt.loadNpmTasks('grunt-docco');
+	grunt.loadNpmTasks('grunt-docco2');
 
 	// Default task(s)
 	grunt.registerTask('default', ['docco']);
