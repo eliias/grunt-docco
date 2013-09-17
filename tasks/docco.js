@@ -16,8 +16,8 @@ module.exports = function (grunt) {
         var opts = options({ args: [f] });
         var parts = f.split("/");
         parts = parts.length > 1 ? parts.slice(0, -1) : parts.join('/');
-        var path = opts.basepath + '/' + parts.join('/');
-        opts.output = dest + path;
+        var path = parts.join('/');
+        opts.output = dest + '/' + path.replace(opts.basepath, "");
 
         docco.document(opts, function() {
             if(list.length > 0) {
