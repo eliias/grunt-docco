@@ -10,17 +10,30 @@
 var docco = require('docco');
 
 module.exports = function (grunt) {
+
+    var process = function(list, options) {
+        var f = list.shift();
+        docco.document(options({ args: [f], output: "docs/annotated-source" }), function() {
+            if(l.length > 0) {
+                process(n);
+            } else {
+                console.log("processing finished");
+            }
+        });
+    };
+
     grunt.registerMultiTask('docco', 'Generate docco', function () {
+        // Props
         var task = this;
         var processed = 0;
         var length = this.files.length;
         var done = this.async();
 
-        // Iterate over sources
+        // Get number of files we need to process
         this.files.forEach(function (file) {
-            docco.document(task.options({ args: file.src, output: file.dest }), function () {
-                if (++processed === length) done();
-            });
+            process(file.src, task.options);
         });
+
     });
+
 };
