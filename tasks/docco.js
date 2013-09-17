@@ -11,13 +11,19 @@ var docco = require('docco');
 
 module.exports = function (grunt) {
 
-    var process = function(list, options) {
+    var process = function self(list, dest, options, async) {
         var f = list.shift();
-        docco.document(options({ args: [f], output: "docs/annotated-source" }), function() {
-            if(l.length > 0) {
-                process(n);
+        var opts = options({ args: [f] });
+        var parts = f.split("/");
+        parts = parts.length > 1 ? parts.slice(0, -1) : parts.join('/');
+        var path = opts.basepath + '/' + parts.join('/');
+        opts.output = dest + path;
+
+        docco.document(opts, function() {
+            if(list.length > 0) {
+                self(list, dest, options, async);
             } else {
-                console.log("processing finished");
+                async();
             }
         });
     };
@@ -31,7 +37,7 @@ module.exports = function (grunt) {
 
         // Get number of files we need to process
         this.files.forEach(function (file) {
-            process(file.src, task.options);
+            process(file.src, file.dest, task.options, done);
         });
 
     });
