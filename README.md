@@ -6,6 +6,17 @@ HTML documents that displays your comments intermingled with your code.
 I got the idea for this plugin from [David Souther](https://github.com/DavidSouther/grunt-docco) but his version did
 not work for me and `grunt 0.4`.
 
+## Info
+
+Some people experienced issues with an unmet docco dependency. I tried to fix this by pointing to a specific commit
+of docco but I am not sure if this is working with all NPM versions supporting github URL's.
+
+I have test it on following setup:
+- Mac OS X
+- Macports 2.2.0
+- Node v0.10.18
+- npm 1.3.11
+
 ## Getting Started
 
 This plugin requires Grunt `~0.4`
@@ -76,6 +87,8 @@ module.exports = function(grunt) {
 ```
 
 ## Release History
+* 26-09-2013        0.1.4   Fixed docco dependency
+* 26-09-2013        0.1.3   Fixed docco dependency (broken release)
 * 17-09-2013        0.1.2   Supports nested directories
 * 25-05-2013        0.1.1   Fixes README and docs
 * 25-05-2013        0.1.0   Initial release
