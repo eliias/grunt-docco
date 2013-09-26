@@ -87,6 +87,7 @@ module.exports = function(grunt) {
 ```
 
 ## Release History
+* 26-09-2013        0.1.5   Allow output option as addition to dest (TODO Examples in README are outdated)
 * 26-09-2013        0.1.4   Fixed docco dependency
 * 26-09-2013        0.1.3   Fixed docco dependency (broken release)
 * 17-09-2013        0.1.2   Supports nested directories

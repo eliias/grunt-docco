@@ -17,6 +17,7 @@ module.exports = function (grunt) {
         var parts = f.split("/");
         parts = parts.length > 1 ? parts.slice(0, -1) : parts.join('/');
         var path = parts.join('/');
+        dest = dest || opts.output;
         opts.output = dest + '/' + path.replace(opts.basepath, "");
 
         docco.document(opts, function() {
