@@ -44,9 +44,15 @@ In your project's Gruntfile, add a section named `docco` to the data object pass
 ```js
 grunt.initConfig({
   docco: {
-    src: [],
+    docs: {
+        files: [
+            expand: true,
+            cwd: 'public/js'
+        ]
+    },
     options: {
-        output: 'docs'
+        dst: 'docs',
+        layout: 'parallel'
     }
   }
 })
@@ -64,26 +70,35 @@ If you are not sure about the pattern and how you should define the `src` array,
 module.exports = function(grunt) {
 
     // Project configuration.
-    grunt.initConfig({
-        pkg: grunt.file.readJSON('package.json'),
-		docco: {
-			docs: {
-				src: ['public/js/**/*.js', '!public/js/libs/*.js', '!public/js/libs/**/*.js'],
-				options: {
-					output: 'docs/annotated-source'
-				}
-			}
-		}
-	});
+    grunt.initConfig( {
 
-	// Load tasks
-	grunt.loadNpmTasks('grunt-docco2');
+        docco: {
+            options: {
+                dst: './docs/annotated-source',
+                layout: 'parallel'
+            },
+            docs: {
+                files: [
+                    {
+                        expand: true,
+                        cwd: './public/js',
+                        src: [
+                            '**/*.js',
+                            '!libs/**/*'
+                        ]
+                    }
+                ]
+            }
+        }
+    });
 
-	// Default task(s)
-	grunt.registerTask('default', ['docco']);
+    // Load tasks
+    grunt.loadNpmTasks('grunt-docco2');
+
+    // Default task(s)
+    grunt.registerTask('default', ['docco']);
 
 };
-
 ```
 
 ## Release History

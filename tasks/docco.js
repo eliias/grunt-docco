@@ -1,3 +1,6 @@
+/*jslint browser: true */
+/*global require */
+
 /*
  * docco
  * https://github.com/eliias/grunt-docco
@@ -5,41 +8,92 @@
  * Copyright (c) 2013 Hannes Moser
  * Licensed under the MIT license.
  */
-
-'use strict';
-var docco = require('docco');
-
 module.exports = function (grunt) {
+    'use strict';
 
-    var process = function self(list, dest, options, async) {
-        var f = list.shift();
-        var opts = options({ args: [f] });
-        var parts = f.split("/");
-        parts = parts.length > 1 ? parts.slice(0, -1) : parts.join('/');
-        var path = parts.join('/');
-        dest = dest || opts.output;
-        opts.output = dest + '/' + path.replace(opts.basepath, "");
+    var docco       = require('docco'),
+        path        = require('path'),
+        _           = grunt.util._;
 
-        docco.document(opts, function() {
-            if(list.length > 0) {
-                self(list, dest, options, async);
+    /**
+     * Process a single file with the docco generator
+     *
+     * @param {Array} List of files
+     * @param {Async} done
+     */
+    function process( list, done ) {
+        var dir     = list.shift(),
+            opts    = { args: dir.src };
+
+        // Set docco output
+        opts.output = dir.dst;
+
+        // Generate docs
+        docco.document(opts, function () {
+            if (list.length > 0) {
+                process( list, done );
             } else {
-                async();
+                done();
             }
         });
-    };
+    }
 
+    /**
+     * Parse filetree and return all directories found
+     *
+     * @param {Object} dirs The directory hash
+     * @param {Array} list A list of files
+     * @param {Function) options Task options
+     * @return {Object} Returns the modified directory hash
+     */
+    function parse( dirs, list, options ) {
+        var f    = list.src.shift(),
+            opts = options(),
+            dir = path.join( opts.dst, path.dirname( list.dest ) );
+
+        // Check if a destination is set
+        if (!opts.dst) {
+            grunt.fail.fatal( 'You must set the "dst" option.');
+        }
+
+        if (!dirs[dir] || !_.isArray( dirs[dir] )) {
+            dirs[dir] = [ f ];
+        } else {
+            dirs[dir].push( f );
+        }
+
+        if (list.src.length > 0) {
+            parse( dirs, list, options );
+        }
+
+        return dirs;
+    }
+
+    /**
+     * Register docco task
+     */
     grunt.registerMultiTask('docco', 'Generate docco', function () {
         // Props
-        var task = this;
-        var processed = 0;
-        var length = this.files.length;
-        var done = this.async();
+        var task = this,
+            done = this.async();
 
-        // Get number of files we need to process
-        this.files.forEach(function (file) {
-            process(file.src, file.dest, task.options, done);
-        });
+        // Get directories
+        var dirs = {};
+        this.files.forEach( function( file ) {
+            parse( dirs, file, task.options );
+        } );
+
+        // Map hash into list
+        var list = [];
+        _.forEach( dirs, function( src, dst ) {
+            list.push( {
+                src: src,
+                dst: dst
+            });
+        } );
+
+        // Generate docs
+        process( list, done );
 
     });
 
