@@ -9,6 +9,7 @@ lib-cov
 *.pid
 *.gz
 .idea
+.jshintrc
 
 pids
 logs
