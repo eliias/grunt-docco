@@ -102,6 +102,7 @@ module.exports = function(grunt) {
 ```
 
 ## Release History
+* 24-02-2013        0.2.0   Major refactoring of the core functions, be aware that the options are not 100% compatible with 0.1.x
 * 26-09-2013        0.1.5   Allow output option as addition to dest (TODO Examples in README are outdated)
 * 26-09-2013        0.1.4   Fixed docco dependency
 * 26-09-2013        0.1.3   Fixed docco dependency (broken release)
