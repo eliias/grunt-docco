@@ -44,6 +44,10 @@ In your project's Gruntfile, add a section named `docco` to the data object pass
 ```js
 grunt.initConfig({
   docco: {
+    options: {
+        dst: 'docs',
+        layout: 'parallel'
+    }
     docs: {
         files: [
             {
@@ -51,10 +55,6 @@ grunt.initConfig({
                 cwd: 'public/js'
             }
         ]
-    },
-    options: {
-        dst: 'docs',
-        layout: 'parallel'
     }
   }
 })
