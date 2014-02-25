@@ -12,10 +12,10 @@ Some people experienced issues with an unmet docco dependency. I tried to fix th
 of docco but I am not sure if this is working with all NPM versions supporting github URL's.
 
 I have test it on following setup:
-- Mac OS X
-- Macports 2.2.0
-- Node v0.10.18
-- npm 1.3.11
+- Mac OS X 10.9.1
+- Macports 2.2.1
+- Node v0.10.22
+- npm 1.3.15
 
 ## Getting Started
 
