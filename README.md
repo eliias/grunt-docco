@@ -46,8 +46,10 @@ grunt.initConfig({
   docco: {
     docs: {
         files: [
-            expand: true,
-            cwd: 'public/js'
+            {
+                expand: true,
+                cwd: 'public/js'
+            }
         ]
     },
     options: {
