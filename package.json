@@ -29,7 +29,7 @@
     "test": "grunt test"
   },
   "dependencies": {
-    "docco-dev": "git+https://git@github.com/jashkenas/docco.git#d6a7f7dc941232bcbbb4b7dd0feb70ca735f9fab"
+    "docco": "~0.6.3"
   },
   "devDependencies": {
     "grunt-contrib-jshint": "~0.1.1",
