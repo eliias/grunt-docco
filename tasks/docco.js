@@ -12,26 +12,30 @@ module.exports = function (grunt) {
     'use strict';
 
     var docco       = require('docco'),
-        path        = require('path'),
-        _           = grunt.util._;
+      path        = require('path'),
+      _           = grunt.util._;
 
     /**
      * Process a single file with the docco generator
      *
-     * @param {Array} List of files
+     * @param {Array} list of files
      * @param {Async} done
+     * @param {Object} options object passed in via task configuration
      */
-    function process( list, done ) {
+    function process( list, done, options) {
         var dir     = list.shift(),
-            opts    = { args: dir.src };
+          opts    = { args: dir.src };
 
         // Set docco output
         opts.output = dir.dst;
 
+        //add other options
+        _.extend(opts,options);
+
         // Generate docs
         docco.document(opts, function () {
             if (list.length > 0) {
-                process( list, done );
+                process( list, done, options );
             } else {
                 done();
             }
@@ -43,13 +47,13 @@ module.exports = function (grunt) {
      *
      * @param {Object} dirs The directory hash
      * @param {Array} list A list of files
-     * @param {Function) options Task options
+     * @param {Function} options Task options
      * @return {Object} Returns the modified directory hash
      */
     function parse( dirs, list, options ) {
         var f    = list.src.shift(),
-            opts = options(),
-            dir = path.join( opts.dst, path.dirname( list.dest ) );
+          opts = options(),
+          dir = path.join( opts.dst, path.dirname( list.dest ) );
 
         // Check if a destination is set
         if (!opts.dst) {
@@ -75,7 +79,7 @@ module.exports = function (grunt) {
     grunt.registerMultiTask('docco', 'Generate docco', function () {
         // Props
         var task = this,
-            done = this.async();
+          done = this.async();
 
         // Get directories
         var dirs = {};
@@ -93,7 +97,7 @@ module.exports = function (grunt) {
         } );
 
         // Generate docs
-        process( list, done );
+        process( list, done, task.options());
 
     });
 
